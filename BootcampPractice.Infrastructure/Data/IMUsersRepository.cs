@@ -2,16 +2,20 @@
 using BootcampPractice.ApplicationCore.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BootcampPractice.Infrastructure.Data
 {
-    public class MongoUsersRepository : IUsersRepository
+    public class IMUsersRepository : IUsersRepository
     {
+        List<User> Users = new List<User>();
+
         public Task<User> Create(User user)
         {
-            throw new NotImplementedException();
+            user.Id = Guid.NewGuid().ToString();
+            Users.Add(user);
+
+            return Task.FromResult(user);
         }
 
         public void Delete(string id)
@@ -21,7 +25,7 @@ namespace BootcampPractice.Infrastructure.Data
 
         public Task<IEnumerable<User>> GetAll()
         {
-            throw new NotImplementedException();
+            return Task.FromResult((IEnumerable<User>)Users);
         }
 
         public Task<User> GetById(string id)
